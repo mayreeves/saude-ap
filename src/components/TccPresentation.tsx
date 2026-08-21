@@ -299,13 +299,17 @@ export const TccPresentation: React.FC<TccPresentationProps> = ({ setAppMode }) 
 
       {/* 8. Rodapé de Créditos do TCC (Conforme Solicitado) */}
       <footer className="bg-slate-900 text-white rounded-3xl p-8 sm:p-10 text-center space-y-4 shadow-xl border border-slate-800">
-        <div className="w-16 h-16 rounded-2xl bg-sky-500 text-white flex items-center justify-center mx-auto shadow-lg">
-          <Heart className="w-8 h-8 fill-white" />
+        <div className="flex justify-center">
+          <img
+            src="/logo.jpg"
+            alt="Cuidar+ Logo"
+            className="w-20 h-20 rounded-3xl object-cover shadow-2xl border-2 border-sky-400"
+          />
         </div>
 
         <div className="space-y-1">
           <h3 className="text-2xl sm:text-3xl font-black">
-            Cuidar+
+            Cuidar<span className="text-sky-400">+</span>
           </h3>
           <p className="text-sky-300 text-base font-bold">
             Tecnologia para cuidar de quem você ama.

@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { AppMode, TextSize, Senior } from '../types';
 import { soundFx, speakText } from '../utils/audio';
+import { Logo } from './Logo';
 
 interface HeaderProps {
   appMode: AppMode;
@@ -117,25 +118,10 @@ export const Header: React.FC<HeaderProps> = ({
               soundFx.playClick();
               setAppMode('senior');
             }}
-            className="cursor-pointer flex items-center gap-2.5 group"
+            className="cursor-pointer group hover:opacity-95 transition-opacity"
             title="Cuidar+ — Tecnologia para cuidar de quem você ama"
           >
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-sky-500 to-blue-600 text-white flex items-center justify-center shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform">
-              <Heart className="w-6 h-6 fill-white" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-xl sm:text-2xl font-black text-slate-800 tracking-tight">
-                  Cuidar<span className="text-sky-600">+</span>
-                </span>
-                <span className="text-[10px] font-extrabold bg-sky-100 text-sky-800 px-1.5 py-0.5 rounded-md uppercase tracking-wider">
-                  TCC
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-500 font-medium hidden sm:block">
-                Tecnologia para cuidar de quem você ama
-              </p>
-            </div>
+            <Logo size="md" useImage={true} />
           </div>
         </div>
 
