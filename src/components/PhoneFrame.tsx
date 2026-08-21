@@ -20,7 +20,7 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children, active, onTogg
       <div className="mb-4 flex items-center gap-3 bg-white px-4 py-2 rounded-2xl shadow-sm border border-slate-200 text-xs font-bold text-slate-700">
         <span className="flex items-center gap-1.5 text-sky-700">
           <Smartphone className="w-4 h-4" />
-          Simulador Mobile Cuidar+
+          Simulador Mobile Conectiva Saúde
         </span>
         <button
           onClick={() => {

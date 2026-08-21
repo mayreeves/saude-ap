@@ -51,7 +51,7 @@ export const FamilyView: React.FC<FamilyViewProps> = ({
     soundFx.playClick();
     speakText(`Enviando mensagem para ${cg.name} no WhatsApp.`);
     const cleanPhone = cg.phone.replace(/\D/g, '');
-    const message = encodeURIComponent(`Olá ${cg.name}, tudo bem? Aqui é ${senior.nickname} enviando uma mensagem pelo aplicativo Cuidar+.`);
+    const message = encodeURIComponent(`Olá ${cg.name}, tudo bem? Aqui é ${senior.nickname} enviando uma mensagem pelo aplicativo Conectiva Saúde.`);
     window.open(`https://wa.me/55${cleanPhone}?text=${message}`, '_blank');
   };
 

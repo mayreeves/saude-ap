@@ -56,7 +56,7 @@ export const AppointmentsView: React.FC<AppointmentsViewProps> = ({
       doctor: doctor.trim(),
       date,
       time,
-      location: type === 'telemedicina' ? 'Consulta Online Cuidar+' : location.trim(),
+      location: type === 'telemedicina' ? 'Consulta Online Conectiva Saúde' : location.trim(),
       type,
       notes: notes.trim(),
       status: 'confirmada',

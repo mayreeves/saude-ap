@@ -162,7 +162,7 @@ export const VoiceAssistantModal: React.FC<VoiceAssistantModalProps> = ({
     }
 
     // Initial greeting
-    const welcome = `Olá, ${senior.nickname}! Sou o Assistente Cuidar+. O que você gostaria de fazer agora?`;
+    const welcome = `Olá, ${senior.nickname}! Sou o Assistente Conectiva Saúde. O que você gostaria de fazer agora?`;
     setAssistantReply(welcome);
     speakText(welcome);
 
@@ -248,7 +248,7 @@ export const VoiceAssistantModal: React.FC<VoiceAssistantModalProps> = ({
           </div>
 
           <h2 className="text-2xl sm:text-3xl font-black">
-            🎙️ Assistente de Voz Cuidar+
+            🎙️ Assistente de Voz Conectiva Saúde
           </h2>
           <p className="text-teal-100 font-bold text-sm mt-1">
             Fale livremente ou toque nos comandos rápidos
@@ -295,7 +295,7 @@ export const VoiceAssistantModal: React.FC<VoiceAssistantModalProps> = ({
               <Volume2 className="w-6 h-6 text-teal-600 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <div className="text-xs font-black uppercase text-teal-800">
-                  Resposta do Cuidar+:
+                  Resposta da Conectiva Saúde:
                 </div>
                 <p className="text-sm sm:text-base font-extrabold text-teal-950 mt-1 leading-snug">
                   {assistantReply}

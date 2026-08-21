@@ -101,7 +101,7 @@ export const initialSeniors: Senior[] = [
         doctor: 'Dra. Helena Martins',
         date: '02 de Setembro de 2026',
         time: '10:00',
-        location: 'Consulta Online pelo Cuidar+',
+        location: 'Consulta Online pelo Conectiva Saúde',
         type: 'telemedicina',
         status: 'agendada',
         notes: 'Consulta de rotina para acompanhamento geral do bem-estar.',
@@ -271,7 +271,7 @@ export const initialSeniors: Senior[] = [
 export const tccInfo = {
   title: 'Inclusão Digital na Saúde',
   subtitle: 'Acessibilidade Mobile para Idosos',
-  projectName: 'Cuidar+ — Tecnologia para cuidar de quem você ama',
+  projectName: 'Conectiva Saúde — Tecnologia para cuidar de quem você ama',
   tagline: 'Mais autonomia para o idoso. Mais tranquilidade para a família.',
   author: 'Maynara M.M.',
   type: 'Trabalho de Conclusão de Curso (TCC)',

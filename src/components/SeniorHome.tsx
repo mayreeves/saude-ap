@@ -57,7 +57,7 @@ export const SeniorHome: React.FC<SeniorHomeProps> = ({
           <div className="space-y-1.5 flex-1">
             <div className="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider text-sky-100">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Cuidar+ Saúde Segura</span>
+              <span>Conectiva Saúde Segura</span>
             </div>
             
             <h1 className="text-3xl sm:text-4xl font-black tracking-tight pt-1">
@@ -308,7 +308,7 @@ export const SeniorHome: React.FC<SeniorHomeProps> = ({
             <span>Comando por Voz Inteligente</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-black">
-            🎙️ Falar com o Cuidar+
+            🎙️ Falar com a Conectiva Saúde
           </h2>
           <p className="text-sm sm:text-base text-teal-100 font-bold">
             Fale o que você precisa: "Meus remédios", "Minhas consultas" ou "SOCORRO".

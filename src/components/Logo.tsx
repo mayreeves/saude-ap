@@ -29,12 +29,12 @@ export const Logo: React.FC<LogoProps> = ({
       {useImage ? (
         <img
           src="/logo.jpg"
-          alt="Cuidar+ Logo"
-          className={`${current.img} rounded-2xl object-cover shadow-md shadow-sky-500/20 border border-sky-100 flex-shrink-0`}
+          alt="Conectiva Saúde Logo"
+          className={`${current.img} rounded-2xl object-cover shadow-md shadow-teal-500/20 border border-teal-100 flex-shrink-0`}
         />
       ) : (
         <div
-          className={`${current.icon} rounded-2xl bg-gradient-to-br from-teal-400 via-sky-500 to-blue-600 p-0.5 shadow-lg shadow-sky-500/25 flex items-center justify-center flex-shrink-0 relative overflow-hidden group`}
+          className={`${current.icon} rounded-2xl bg-gradient-to-br from-teal-400 via-sky-500 to-emerald-600 p-0.5 shadow-lg shadow-teal-500/25 flex items-center justify-center flex-shrink-0 relative overflow-hidden group`}
         >
           <div className="w-full h-full bg-white/10 rounded-[14px] flex items-center justify-center backdrop-blur-xs relative">
             <svg
@@ -71,10 +71,10 @@ export const Logo: React.FC<LogoProps> = ({
         <div className="flex flex-col text-left">
           <div className="flex items-center gap-1.5 leading-none">
             <span className={`${current.text} font-black tracking-tight text-slate-900`}>
-              Cuidar<span className="text-sky-600 font-extrabold">+</span>
+              Conectiva <span className="text-teal-600 font-extrabold">Saúde</span>
             </span>
             <span className="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded-md uppercase tracking-wider">
-              Saúde
+              TCC
             </span>
           </div>
 

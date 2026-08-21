@@ -119,7 +119,7 @@ export const Header: React.FC<HeaderProps> = ({
               setAppMode('senior');
             }}
             className="cursor-pointer group hover:opacity-95 transition-opacity"
-            title="Cuidar+ — Tecnologia para cuidar de quem você ama"
+            title="Conectiva Saúde — Tecnologia para cuidar de quem você ama"
           >
             <Logo size="md" useImage={true} />
           </div>
@@ -286,7 +286,7 @@ export const Header: React.FC<HeaderProps> = ({
               onOpenVoiceAssistant();
             }}
             className="p-2 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-sm hover:scale-105 transition-transform"
-            title="Abrir Assistente de Voz Cuidar+"
+            title="Abrir Assistente de Voz Conectiva Saúde"
             aria-label="Assistente de voz"
           >
             <Sparkles className="w-4 h-4" />

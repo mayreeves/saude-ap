@@ -49,7 +49,7 @@ export const TccPresentation: React.FC<TccPresentationProps> = ({ setAppMode }) 
           </h1>
 
           <p className="text-lg sm:text-xl text-slate-300 font-semibold leading-relaxed">
-            Desenvolvimento da plataforma <strong className="text-white">Cuidar+</strong> como resposta aos desafios de usabilidade, adesão farmacológica e socorro emergencial para a terceira idade.
+            Desenvolvimento da plataforma <strong className="text-white">Conectiva Saúde</strong> como resposta aos desafios de usabilidade, adesão farmacológica e socorro emergencial para a terceira idade.
           </p>
 
           <div className="pt-4 flex flex-wrap items-center gap-4 text-xs sm:text-sm font-bold text-slate-300 border-t border-slate-800">
@@ -83,7 +83,7 @@ export const TccPresentation: React.FC<TccPresentationProps> = ({ setAppMode }) 
       {/* Slogan Destaque */}
       <section className="bg-sky-50 border-2 border-sky-200 rounded-3xl p-8 text-center space-y-2">
         <h2 className="text-2xl sm:text-3xl font-black text-sky-950">
-          “Cuidar+ — Tecnologia para cuidar de quem você ama.”
+          “Conectiva Saúde — Tecnologia para cuidar de quem você ama.”
         </h2>
         <p className="text-base sm:text-lg font-extrabold text-sky-800">
           “Mais autonomia para o idoso. Mais tranquilidade para a família.”

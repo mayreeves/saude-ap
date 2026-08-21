@@ -79,7 +79,7 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
             Entenda seus exames sem palavras difíceis
           </strong>
           <p className="text-xs sm:text-sm font-semibold text-purple-800 mt-0.5 leading-relaxed">
-            O Cuidar+ transforma laudos médicos técnicos em explicações fáceis para você e sua família acompanharem a sua saúde com tranquilidade.
+            A Conectiva Saúde transforma laudos médicos técnicos em explicações fáceis para você e sua família acompanharem a sua saúde com tranquilidade.
           </p>
         </div>
       </div>

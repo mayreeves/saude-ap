@@ -116,7 +116,7 @@ export const TelemedicineModal: React.FC<TelemedicineModalProps> = ({
             <div>
               <div className="text-xs font-black uppercase text-sky-400 tracking-wider flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                Telemedicina Cuidar+ (Consulta Segura)
+                Telemedicina Conectiva Saúde (Consulta Segura)
               </div>
               <h2 className="text-lg font-black text-white">{appointment.doctor}</h2>
             </div>

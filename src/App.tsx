@@ -174,6 +174,17 @@ export function App() {
     setActiveSeniorId(newSenior.id);
   };
 
+  // Handler: Update Senior Photo
+  const handleUpdateSeniorPhoto = (seniorId: string, photoDataUrl: string) => {
+    setSeniors(prev =>
+      prev.map(s => s.id === seniorId ? { ...s, photoUrl: photoDataUrl } : s)
+    );
+    // Keep profile modal in sync with updated data
+    setProfileModalSenior(prev =>
+      prev && prev.id === seniorId ? { ...prev, photoUrl: photoDataUrl } : prev
+    );
+  };
+
   // Handler: Trigger Emergency
   const handleTriggerEmergency = (targetSenior?: Senior) => {
     const victim = targetSenior || activeSenior;
@@ -404,6 +415,8 @@ export function App() {
           senior={profileModalSenior}
           isOpen={!!profileModalSenior}
           onClose={() => setProfileModalSenior(null)}
+          onUpdatePhoto={handleUpdateSeniorPhoto}
+          voiceEnabled={voiceEnabled}
         />
       )}
 

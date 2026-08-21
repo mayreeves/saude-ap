@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { UserPlus, X, User, Heart, ShieldAlert, Sparkles } from 'lucide-react';
+import { UserPlus, X, Camera, Image, User } from 'lucide-react';
 import { Senior } from '../types';
 import { soundFx, speakText } from '../utils/audio';
+import { PhotoPickerModal } from './PhotoPickerModal';
 
 interface AddSeniorModalProps {
   isOpen: boolean;
@@ -9,7 +10,7 @@ interface AddSeniorModalProps {
   onAddSenior: (senior: Senior) => void;
 }
 
-const sampleAvatars = [
+const DEFAULT_AVATARS = [
   'https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?w=200&auto=format&fit=crop&q=80',
   'https://images.unsplash.com/photo-1544717302-de2939b7ef71?w=200&auto=format&fit=crop&q=80',
   'https://images.unsplash.com/photo-1566616213894-2d4e1baee5d8?w=200&auto=format&fit=crop&q=80',
@@ -32,9 +33,21 @@ export const AddSeniorModal: React.FC<AddSeniorModalProps> = ({
   const [allergiesText, setAllergiesText] = useState('Nenhuma conhecida');
   const [conditionsText, setConditionsText] = useState('Hipertensão leve');
   const [notes, setNotes] = useState('Gosta de caminhar de manhã');
-  const [photoUrl, setPhotoUrl] = useState(sampleAvatars[0]);
+  const [photoUrl, setPhotoUrl] = useState(DEFAULT_AVATARS[0]);
+  const [isPhotoPickerOpen, setIsPhotoPickerOpen] = useState(false);
+  const [hasCustomPhoto, setHasCustomPhoto] = useState(false);
 
   if (!isOpen) return null;
+
+  const handlePhotoSelected = (dataUrl: string) => {
+    setPhotoUrl(dataUrl);
+    setHasCustomPhoto(true);
+  };
+
+  const handlePhotoRemoved = () => {
+    setPhotoUrl(DEFAULT_AVATARS[0]);
+    setHasCustomPhoto(false);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,189 +102,261 @@ export const AddSeniorModal: React.FC<AddSeniorModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-200 my-auto animate-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto">
-        
-        {/* Header */}
-        <div className="flex items-center justify-between border-b pb-3">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-black">
-              <UserPlus className="w-6 h-6" />
-            </div>
-            <div>
-              <h2 className="text-xl font-black text-slate-900">Cadastrar Novo Idoso</h2>
-              <p className="text-xs text-slate-500 font-bold">Adicione mãe, pai, avós ou familiares</p>
-            </div>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-2 text-slate-400 hover:text-slate-700 rounded-xl"
-          >
-            <X className="w-6 h-6" />
-          </button>
-        </div>
-
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4 text-sm font-bold text-slate-700">
+    <>
+      <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-200 my-auto animate-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto">
           
-          {/* Avatar Selector */}
-          <div>
-            <label className="block text-xs font-black uppercase text-slate-500 mb-2">
-              Escolha uma Foto de Perfil
-            </label>
-            <div className="flex gap-3">
-              {sampleAvatars.map((url, i) => (
-                <img
-                  key={i}
-                  src={url}
-                  alt="Avatar"
-                  onClick={() => setPhotoUrl(url)}
-                  className={`w-14 h-14 rounded-2xl object-cover cursor-pointer border-3 transition-all ${
-                    photoUrl === url ? 'border-emerald-600 scale-105 shadow-md' : 'border-slate-200 opacity-60 hover:opacity-100'
-                  }`}
-                />
-              ))}
+          {/* Header */}
+          <div className="flex items-center justify-between border-b pb-3">
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-black">
+                <UserPlus className="w-6 h-6" />
+              </div>
+              <div>
+                <h2 className="text-xl font-black text-slate-900">Cadastrar Novo Idoso</h2>
+                <p className="text-xs text-slate-500 font-bold">Adicione mãe, pai, avós ou familiares</p>
+              </div>
             </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label className="block text-xs font-black uppercase text-slate-500 mb-1">
-                Nome Completo *
-              </label>
-              <input
-                type="text"
-                required
-                placeholder="Ex: Maria de Lourdes Silva"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-black uppercase text-slate-500 mb-1">
-                Como prefere ser chamado (Apelido) *
-              </label>
-              <input
-                type="text"
-                required
-                placeholder="Ex: Dona Maria, Vovô João"
-                value={nickname}
-                onChange={(e) => setNickname(e.target.value)}
-                className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-3">
-            <div>
-              <label className="block text-xs font-black uppercase text-slate-500 mb-1">
-                Idade *
-              </label>
-              <input
-                type="number"
-                required
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-                className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-black uppercase text-slate-500 mb-1">
-                Gênero
-              </label>
-              <select
-                value={gender}
-                onChange={(e) => setGender(e.target.value as any)}
-                className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
-              >
-                <option value="F">Feminino</option>
-                <option value="M">Masculino</option>
-                <option value="Outro">Outro</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-black uppercase text-slate-500 mb-1">
-                Tipo Sanguíneo
-              </label>
-              <select
-                value={bloodType}
-                onChange={(e) => setBloodType(e.target.value)}
-                className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
-              >
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-black uppercase text-slate-500 mb-1">
-              Endereço Residencial (Para envio de SOS)
-            </label>
-            <input
-              type="text"
-              placeholder="Rua, número, bairro e cidade"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-black uppercase text-slate-500 mb-1">
-              Alergias (Separadas por vírgula)
-            </label>
-            <input
-              type="text"
-              placeholder="Ex: Dipirona, Penicilina, Frutos do Mar"
-              value={allergiesText}
-              onChange={(e) => setAllergiesText(e.target.value)}
-              className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-black uppercase text-slate-500 mb-1">
-              Condições Médicas Importantes
-            </label>
-            <input
-              type="text"
-              placeholder="Ex: Hipertensão, Diabetes Tipo 2, Artrose"
-              value={conditionsText}
-              onChange={(e) => setConditionsText(e.target.value)}
-              className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
-            />
-          </div>
-
-          <div className="pt-2 flex items-center justify-end gap-2">
             <button
-              type="button"
               onClick={onClose}
-              className="px-4 py-3 rounded-2xl text-slate-600 hover:bg-slate-100 font-black text-sm"
+              className="p-2 text-slate-400 hover:text-slate-700 rounded-xl"
             >
-              Cancelar
-            </button>
-            <button
-              type="submit"
-              className="bg-emerald-600 hover:bg-emerald-700 text-white font-black px-6 py-3 rounded-2xl text-sm shadow-md"
-            >
-              Concluir Cadastro
+              <X className="w-6 h-6" />
             </button>
           </div>
 
-        </form>
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-4 mt-4 text-sm font-bold text-slate-700">
+            
+            {/* ── PHOTO PICKER SECTION ── */}
+            <div>
+              <label className="block text-xs font-black uppercase text-slate-500 mb-3">
+                Foto de Perfil
+              </label>
 
+              <div className="flex items-center gap-4">
+                {/* Current avatar preview */}
+                <div className="relative group flex-shrink-0">
+                  <img
+                    src={photoUrl}
+                    alt="Foto de perfil"
+                    className="w-20 h-20 rounded-2xl object-cover border-3 border-emerald-200 shadow-md"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setIsPhotoPickerOpen(true)}
+                    className="absolute inset-0 rounded-2xl bg-black/40 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                    title="Trocar foto"
+                  >
+                    <Camera className="w-6 h-6 text-white" />
+                    <span className="text-white text-[10px] font-black">Trocar</span>
+                  </button>
+                  {/* Camera badge */}
+                  <button
+                    type="button"
+                    onClick={() => setIsPhotoPickerOpen(true)}
+                    className="absolute -bottom-1.5 -right-1.5 bg-emerald-600 text-white p-1.5 rounded-full border-2 border-white shadow"
+                    title="Alterar foto"
+                  >
+                    <Camera className="w-3 h-3" />
+                  </button>
+                </div>
+
+                {/* Picker buttons */}
+                <div className="flex flex-col gap-2 flex-1">
+                  <button
+                    type="button"
+                    onClick={() => setIsPhotoPickerOpen(true)}
+                    className="flex items-center gap-2 bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-200 text-emerald-900 font-black px-4 py-3 rounded-2xl text-sm transition-all active:scale-95"
+                  >
+                    <Camera className="w-5 h-5 text-emerald-600" />
+                    Tirar Foto / Galeria
+                  </button>
+                  {hasCustomPhoto && (
+                    <button
+                      type="button"
+                      onClick={handlePhotoRemoved}
+                      className="text-xs font-black text-slate-500 hover:text-red-600 transition-colors text-left px-1"
+                    >
+                      ✕ Remover foto personalizada
+                    </button>
+                  )}
+                  {!hasCustomPhoto && (
+                    <p className="text-xs text-slate-400 font-semibold px-1">
+                      Ou escolha um avatar padrão:
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Default avatar quick-pick (only when no custom photo) */}
+              {!hasCustomPhoto && (
+                <div className="flex gap-2 mt-3">
+                  {DEFAULT_AVATARS.map((url, i) => (
+                    <img
+                      key={i}
+                      src={url}
+                      alt={`Avatar padrão ${i + 1}`}
+                      onClick={() => setPhotoUrl(url)}
+                      className={`w-12 h-12 rounded-xl object-cover cursor-pointer border-2 transition-all ${
+                        photoUrl === url
+                          ? 'border-emerald-600 scale-105 shadow-md'
+                          : 'border-slate-200 opacity-60 hover:opacity-100'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-black uppercase text-slate-500 mb-1">
+                  Nome Completo *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Ex: Maria de Lourdes Silva"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-black uppercase text-slate-500 mb-1">
+                  Como prefere ser chamado (Apelido) *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Ex: Dona Maria, Vovô João"
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
+                  className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3">
+              <div>
+                <label className="block text-xs font-black uppercase text-slate-500 mb-1">
+                  Idade *
+                </label>
+                <input
+                  type="number"
+                  required
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                  className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-black uppercase text-slate-500 mb-1">
+                  Gênero
+                </label>
+                <select
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value as any)}
+                  className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
+                >
+                  <option value="F">Feminino</option>
+                  <option value="M">Masculino</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-black uppercase text-slate-500 mb-1">
+                  Tipo Sanguíneo
+                </label>
+                <select
+                  value={bloodType}
+                  onChange={(e) => setBloodType(e.target.value)}
+                  className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
+                >
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-black uppercase text-slate-500 mb-1">
+                Endereço Residencial (Para envio de SOS)
+              </label>
+              <input
+                type="text"
+                placeholder="Rua, número, bairro e cidade"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-black uppercase text-slate-500 mb-1">
+                Alergias (Separadas por vírgula)
+              </label>
+              <input
+                type="text"
+                placeholder="Ex: Dipirona, Penicilina, Frutos do Mar"
+                value={allergiesText}
+                onChange={(e) => setAllergiesText(e.target.value)}
+                className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-black uppercase text-slate-500 mb-1">
+                Condições Médicas Importantes
+              </label>
+              <input
+                type="text"
+                placeholder="Ex: Hipertensão, Diabetes Tipo 2, Artrose"
+                value={conditionsText}
+                onChange={(e) => setConditionsText(e.target.value)}
+                className="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-emerald-500 text-sm font-bold focus:outline-none"
+              />
+            </div>
+
+            <div className="pt-2 flex items-center justify-end gap-2">
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-4 py-3 rounded-2xl text-slate-600 hover:bg-slate-100 font-black text-sm"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-black px-6 py-3 rounded-2xl text-sm shadow-md"
+              >
+                Concluir Cadastro
+              </button>
+            </div>
+
+          </form>
+
+        </div>
       </div>
-    </div>
+
+      {/* Photo Picker Modal */}
+      <PhotoPickerModal
+        isOpen={isPhotoPickerOpen}
+        onClose={() => setIsPhotoPickerOpen(false)}
+        onPhotoSelected={handlePhotoSelected}
+        onPhotoRemoved={hasCustomPhoto ? handlePhotoRemoved : undefined}
+        currentPhoto={hasCustomPhoto ? photoUrl : undefined}
+      />
+    </>
   );
 };

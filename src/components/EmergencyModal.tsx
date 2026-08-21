@@ -135,7 +135,7 @@ export const EmergencyModal: React.FC<EmergencyModalProps> = ({
           <div className="flex items-center justify-between gap-2">
             <div className="inline-flex items-center gap-1.5 bg-black/25 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider">
               <Radio className="w-4 h-4 animate-pulse text-yellow-300" />
-              <span>Cuidar+ SOS Integrado</span>
+              <span>Conectiva Saúde SOS Integrado</span>
             </div>
 
             <button
